@@ -5,12 +5,13 @@ export default class Game  {
         this.ball = ball;
         this.player1 = player1;
         this.player2 = player2;
-        this.turn = undefined;
+        // we dont know the value
+        this.turn = null;
     }
 
     apply_rules(paddle) {
-       if (this.turn == undefined) {
-            this.turn = paddle;
+        if (this.turn == null) {
+            this.turn = this.ball.vel_x > 0 ? this.player2 : this.player1;
         }
         
         if (this._ball_and_paddle_intersects(paddle) && this.turn == paddle) {
@@ -21,11 +22,11 @@ export default class Game  {
     apply_score() {
         if ((this.ball.pos_x - this.ball.radius) <= 0) {
             this.score.player2_add_score();
-            //sthis.reset_positions();
+            sthis.reset_positions();
         }
         if ((this.ball.pos_x + this.ball.radius) >= this.ball.canvas.width) {
             this.score.player1_add_score();
-            //this.reset_positions();
+            this.reset_positions();
         }
     }
     
